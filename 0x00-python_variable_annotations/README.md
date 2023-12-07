@@ -28,3 +28,6 @@
 | 7. Complex types - string and int/float to tuple | [7-to_kv.py](./7-to_kv.py) |
 | 8. Complex types - functions | [8-make_multiplier.py](./8-make_multiplier.py) |
 | 9. Let's duck type an iterable object | [9-element_length.py](./9-element_length.py) |
+| 10. Duck typing - first element of a sequence | [100-safe_first_element.py](./100-safe_first_element.py) |
+| 11. More involved type annotations | [101-safely_get_value.py](./101-safely_get_value.py) |
+| 12. Type Checking | [102-type_checking.py](./102-type_checking.py) |
