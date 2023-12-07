@@ -9,6 +9,8 @@ from typing import Callable
 
 
 def make_multiplier(multiplier: float) -> Callable[[float], float]:
-    def func(multiplier: float) -> float:
-        return multiplier * multiplier
+    """ Type-annotated function"""
+    def func(x: float) -> float:
+        """ returns a function that multiplies a float by multiplier"""
+        return multiplier * x
     return func
