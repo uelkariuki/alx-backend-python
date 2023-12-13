@@ -11,11 +11,11 @@ import random
 import asyncio
 
 
-async def async_generator() -> AsyncGenerator[int, None]:
+async def async_generator() -> AsyncGenerator[float, None]:
     """
     coroutine called async_generator that takes no arguments
     """
-    for i in range(10):
-        i = random.uniform(0, 10)
+    for _ in range(10):
+        random_number = random.uniform(0, 10)
         await asyncio.sleep(1)
-        yield i
+        yield random_number
