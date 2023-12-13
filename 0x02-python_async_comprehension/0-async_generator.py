@@ -11,7 +11,7 @@ import random
 import asyncio
 
 
-async def async_generator() -> AsyncGenerator[float, None]:
+async def async_generator() -> AsyncGenerator[int, None]:
     """
     coroutine called async_generator that takes no arguments
     """
