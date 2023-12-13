@@ -11,7 +11,7 @@ from typing import Coroutine
 async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 
-async def measure_runtime() -> Coroutine[None, None, float]:
+async def measure_runtime() -> float:
     """
     coroutine that measures the total runtime and returns it
     """
