@@ -4,7 +4,7 @@
 
 import unittest
 from unittest.mock import PropertyMock, patch
-from client import GithubOrgClient, get_json
+from client import GithubOrgClient
 from parameterized import parameterized
 
 
@@ -44,3 +44,11 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(result, ["repo1", "repo2"])
             mock_get_json.assert_called_once()
             mock_public_repos_url.assert_called_once()
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, repo, license_key, expected):
+        """Method to unittest GithubOrgClient.has_license"""
+        self.assertEqual(GithubOrgClient.has_license(repo, license_key), expected)
