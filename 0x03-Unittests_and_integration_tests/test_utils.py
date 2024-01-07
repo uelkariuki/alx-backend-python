@@ -65,19 +65,13 @@ class TestMemoize(unittest.TestCase):
     """
     class with unit tests for utils.memoize
     """
-    @parameterized.expand([
-        (42,),
-    ])
-    def test_memoize(self, method_return_value):
+    @patch.object(TestClass, 'a_method', return_value=42)
+    def test_memoize(self, mock_function):
         """Test that memoize works well"""
-        with patch.object(TestClass, "a_method", return_value=method_return_value) as mock_function:
-            instance = TestClass()
+        test_object = TestClass()
+        result1 = test_object.a_property
+        result2 = test_object.a_property
 
-
-            result1 = instance.a_property
-            result2 = instance.a_property
-
-            self.assertEqual(result1, method_return_value)
-            self.assertEqual(result2, method_return_value)
-
-            mock_function.assert_called_once()
+        mock_function.assert_called_once()
+        self.assertEqual(result1, 42)
+        self.assertEqual(result2, 42)
