@@ -3,9 +3,12 @@
 """Unittests for client.GithubOrgClient class"""
 
 import unittest
-from unittest.mock import PropertyMock, patch
+from unittest.mock import Mock, PropertyMock, patch
+
+from requests import HTTPError
 from client import GithubOrgClient
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -52,3 +55,42 @@ class TestGithubOrgClient(unittest.TestCase):
     def test_has_license(self, repo, license_key, expected):
         """Method to unittest GithubOrgClient.has_license"""
         self.assertEqual(GithubOrgClient.has_license(repo, license_key), expected)
+
+@parameterized_class([
+    {
+        "org_payload": TEST_PAYLOAD[0][0],
+        "repos_payload":TEST_PAYLOAD[0][1],
+        "expected_repos": TEST_PAYLOAD[0][2],
+        "apache2_repos": TEST_PAYLOAD[0][3]
+    },
+])
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """ Integration tests for class GithubOrgClient """
+    @classmethod
+    def setUpClass(cls):
+        """Set up class method for TestIntegrationGithubOrgClient"""
+
+        routes_payload = {
+            'https://api.github.com/orgs/google': cls.org_payload,
+            'https://api.github.com/orgs/google/repos': cls.repos_payload,
+
+        }
+
+        def get_payload(url):
+            """Method to get payload"""
+            if url in routes_payload:
+                # Dict used to create a Mock object that mimicss
+                # requests.Response object when json method of Mock object is
+                # called, it returns the payload corresponding to the URL
+                return Mock(**{'json.return_value': routes_payload[url]})
+            return HTTPError
+
+        cls.get_patcher = patch('requests.get', side_effect=get_payload)
+        cls.mock_get = cls.get_patcher.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the patcher after running all the tests
+        """
+        return cls.get_patcher.stop()
