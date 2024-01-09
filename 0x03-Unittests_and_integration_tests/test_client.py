@@ -54,7 +54,9 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     def test_has_license(self, repo, license_key, expected):
         """Method to unittest GithubOrgClient.has_license"""
-        self.assertEqual(GithubOrgClient.has_license(repo, license_key), expected)
+        self.assertEqual(GithubOrgClient.has_license(repo, license_key),
+                         expected)
+
 
 @parameterized_class([
     {
@@ -90,14 +92,17 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     def test_public_repos(self):
         """Method to test GithubOrgClient.public_repos"""
-        self.assertEqual(GithubOrgClient("google").public_repos(), self.expected_repos)
+        self.assertEqual(GithubOrgClient("google").public_repos(),
+                         self.expected_repos)
 
     def test_public_repos_with_license(self):
         """
         Method to test GithubOrgClient.public_repos
         with an added license argument
         """
-        self.assertEqual(GithubOrgClient("google").public_repos(license="apache-2.0"), self.apache2_repos)
+        self.assertEqual(
+            GithubOrgClient("google").public_repos(license="apache-2.0"),
+            self.apache2_repos)
 
     @classmethod
     def tearDownClass(cls):
