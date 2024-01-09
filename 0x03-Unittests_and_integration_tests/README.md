@@ -22,3 +22,5 @@
 | 6. More patching | [test_client.py](./test_client.py) |
 | 7. Parameterize | [test_client.py](./test_client.py) |
 | 8. Integration test: fixtures | [test_client.py](./test_client.py) |
+| 9. Integration tests | [test_client.py](./test_client.py)
+
